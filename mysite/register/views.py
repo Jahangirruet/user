@@ -24,6 +24,7 @@ def register(request):
                 return render(request,'register.html') 
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'Email taken')
+                return render(request,'register.html')
             else:
                 user =  User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name)
                 user.save();

@@ -12,19 +12,17 @@ def login(request):
     if request.method == 'POST':
         username  = request.POST['username']
         password = request.POST['password']
-
         user = auth.authenticate(username=username,password=password)
 
         if user is not None :
             auth.login(request, user)
-            print("user logged in")
-            return redirect('/')      
-    else :
-        print("user not found")
-        return render(request, "login.html")
+            messages.info(request,'user logged in')
+            return render(request, 'login.html')    
+        else :
+            messages.info(request,'user not found')
+            return render(request, 'login.html')
+    else:
+        return  render(request, 'login.html')
 
 
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
 
